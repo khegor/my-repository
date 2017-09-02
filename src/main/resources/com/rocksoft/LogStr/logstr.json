@@ -1,0 +1,110 @@
+{
+    "workers" : [
+      {
+        "position" : "driver" ,
+        "name" : "Vasia" ,
+        "surname" : "Pupkin" ,
+        "establishedPost" : "driver" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Minsk" ,
+          "street" : "Leukova" ,
+          "homeNumber" : "14"
+        },
+        "dateOfBirth": "2010-10-27"
+      },
+      {
+        "position" : "driver" ,
+        "name" : "Vitya" ,
+        "surname" : "Vegansky" ,
+        "establishedPost" : "driver" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Hrodno" ,
+          "street" : "Mira" ,
+          "homeNumber" : "10"
+        },
+        "dateOfBirth": "2011-10-27"
+      },
+      {
+        "position" : "logist" ,
+        "name" : "Anton" ,
+        "surname" : "Miasnik",
+        "establishedPost" : "logist" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Minsk" ,
+          "street" : "Voronyanskogo" ,
+          "homeNumber" : "6"
+        },
+        "dateOfBirth": "2000-10-27"
+      },
+      {
+        "position" : "logist" ,
+        "name" : "Stepan" ,
+        "surname" : "Capusta",
+        "establishedPost" : "logist" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Vitebsk" ,
+          "street" : "Severnaya" ,
+          "homeNumber" : "31"
+        },
+        "dateOfBirth": "2007-10-27"
+      },
+      {
+        "position" : "storekeeper" ,
+        "name" : "Gleb" ,
+        "surname" : "Hleb" ,
+        "establishedPost" : "storekeeper" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Minsk" ,
+          "street" : "Rokosovskogo" ,
+          "homeNumber" : "44"
+        },
+        "dateOfBirth": "2020-10-27"
+      },
+      {
+        "position" : "storekeeper" ,
+        "name" : "Peter" ,
+        "surname" : "Parker",
+        "establishedPost" : "storekeeper" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Minsk" ,
+          "street" : "Centralnaya" ,
+          "homeNumber" : "2"
+        },
+        "dateOfBirth": "2000-10-27"
+      }
+    ],
+    "administration" : [
+      {
+        "position" : "director" ,
+        "name" : "Alex" ,
+        "surname" : "Alexandrenko" ,
+        "establishedPost" : "director" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Minsk" ,
+          "street" : "Pobediteley" ,
+          "homeNumber" : "120"
+        },
+        "dateOfBirth": "2010-10-27"
+      },
+      {
+        "position" : "headOfDepartment" ,
+        "name" : "David" ,
+        "surname" : "Levin" ,
+        "establishedPost" : "headOfDepartment" ,
+        "address" : {
+          "country" : "Belarus" ,
+          "city" : "Minsk" ,
+          "street" : "Prititskogo" ,
+          "homeNumber" : "99"
+        },
+        "dateOfBirth": "2010-10-27"
+      }
+    ]
+}

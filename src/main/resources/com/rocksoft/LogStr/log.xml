@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<staff>
+    <workers>
+        <worker position="driver">
+            <name>Vasia</name>
+            <surname>Pupkin</surname>
+            <establishedPost>driver</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Leukova</street>
+                <homeNumber>14</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </worker>
+        <worker position="driver">
+            <name>Vitya</name>
+            <surname>Vegansky</surname>
+            <establishedPost>driver</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Hrodno</city>
+                <street>Mira</street>
+                <homeNumber>10</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </worker>
+        <worker position="logist">
+            <name>Anton</name>
+            <surname>Miasnik</surname>
+            <establishedPost>logist</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Voronyanskogo</street>
+                <homeNumber>6</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </worker>
+        <worker position="logist">
+            <name>Stepan</name>
+            <surname>Capusta</surname>
+            <establishedPost>logist</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Vitebsk</city>
+                <street>Severnaya</street>
+                <homeNumber>31</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </worker>
+        <worker position="storekeeper">
+            <name>Gleb</name>
+            <surname>Hleb</surname>
+            <establishedPost>storekeeper</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Rokosovskogo</street>
+                <homeNumber>44</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </worker>
+        <worker position="storekeeper">
+            <name>Peter</name>
+            <surname>Parker</surname>
+            <establishedPost>storekeeper</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Centralnaya</street>
+                <homeNumber>2</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </worker>
+    </workers>
+    <administration>
+        <admin position="director">
+            <name>Alex</name>
+            <surname>Alexandrenko</surname>
+            <establishedPost>director</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Pobediteley</street>
+                <homeNumber>120</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </admin>
+        <admin position="headOfDepartment">
+            <name>David</name>
+            <surname>Levin</surname>
+            <establishedPost>headOfDepartment</establishedPost>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Prititskogo</street>
+                <homeNumber>99</homeNumber>
+            </address>
+            <dateOfBirth>2010-10-27</dateOfBirth>
+        </admin>
+    </administration>
+</staff>
