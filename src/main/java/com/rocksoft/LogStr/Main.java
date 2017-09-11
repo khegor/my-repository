@@ -44,7 +44,8 @@ public class Main {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
               Statement statement = connection.createStatement()) {
 //            statement.execute("INSERT INTO mydb.DRIVER (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Sima\", \"Standartou\", \"driver\", 1, \"1992-08-05 18:19:03\");");
-            statement.execute("DELETE FROM mydb.driver WHERE ESTABLISHED_POST =\"Director\"");
+//            statement.execute("DELETE FROM mydb.driver WHERE ESTABLISHED_POST =\"Director\"");
+            statement.execute("INSERT INTO mydb.DRIVER (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Oleg\", \"Green\", \"driver\", 6, \"1982-08-05\");");
         } catch (SQLException ex) {
             ex.printStackTrace();
             return;
