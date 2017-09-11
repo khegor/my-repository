@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAttribute;
  * Created by Esenin on 26.08.2017.
  */
 
-public class Driver extends Worker {
-
+public class DriverCar extends Worker {
 
 }

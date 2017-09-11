@@ -4,7 +4,6 @@ package com.rocksoft.LogStr; /**
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rocksoft.LogStr.*;
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -31,7 +30,7 @@ public class Handler extends DefaultHandler {
 
     private Worker worker;
     private Administration adminisration;
-    private Driver driver;
+    private DriverCar driverCar;
     private Logist logist;
     private Storekeeper storekeeper;
     private Director director;
@@ -64,8 +63,8 @@ public class Handler extends DefaultHandler {
                 break;
             case WORKER_TAG:
                 switch (currentAttribute) {
-                    case "driver":
-                        this.worker = new Driver();
+                    case "driverCar":
+                        this.worker = new DriverCar();
                         break;
                     case "storekeeper":
                         this.worker = new Storekeeper();
@@ -229,12 +228,12 @@ public class Handler extends DefaultHandler {
         this.adminisration = adminisration;
     }
 
-    public Driver getDriver() {
-        return driver;
+    public DriverCar getDriverCar() {
+        return driverCar;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setDriverCar(DriverCar driverCar) {
+        this.driverCar = driverCar;
     }
 
     public Logist getLogist() {

@@ -2,10 +2,10 @@
 
 <staff>
     <workers>
-        <worker position="driver">
+        <worker position="driverCar">
             <name>Vasia</name>
             <surname>Pupkin</surname>
-            <establishedPost>driver</establishedPost>
+            <establishedPost>driverCar</establishedPost>
             <address>
                 <country>Belarus</country>
                 <city>Minsk</city>
@@ -14,10 +14,10 @@
             </address>
             <dateOfBirth>2010-10-27</dateOfBirth>
         </worker>
-        <worker position="driver">
+        <worker position="driverCar">
             <name>Vitya</name>
             <surname>Vegansky</surname>
-            <establishedPost>driver</establishedPost>
+            <establishedPost>driverCar</establishedPost>
             <address>
                 <country>Belarus</country>
                 <city>Hrodno</city>

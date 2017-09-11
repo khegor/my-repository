@@ -94,9 +94,9 @@ public class Main {
 //		Address address1 = new Address();
 //		address1.setCountry("Belarus");
 //		address1.setRegion(Region.MINSKY);
-//		IWorkerEat employee1 = new Driver();
+//		IWorkerEat employee1 = new DriverCar();
 //		employee1.eat();
-//		((Driver) employee1).sleep();
+//		((DriverCar) employee1).sleep();
 //		((Employee) employee1).setName("Dima");
 //		((Employee) employee1).setSurName("Petrov");
 //		try {
@@ -106,14 +106,14 @@ public class Main {
 //			System.out.println(e);
 //		}
 //		((Employee) employee1).setEstablishedPost("driver");
-//		((Driver) employee1).setDriveCateg("c");
-//		((Driver) employee1).driveCar("drive slowly");
+//		((DriverCar) employee1).setDriveCateg("c");
+//		((DriverCar) employee1).driveCar("drive slowly");
 //		address1.getYourAddress();
-//		((Driver) employee1).driveCar("action");
+//		((DriverCar) employee1).driveCar("action");
 //		((Employee) employee1).work();
-//		((Driver) employee1).startShift("8-00");
+//		((DriverCar) employee1).startShift("8-00");
 //		System.out.println(((Employee) employee1).getName() + "\n" + employee1.eat() + " \n"
-//				+ ((Driver) employee1).sleep() + "\n");
+//				+ ((DriverCar) employee1).sleep() + "\n");
 //
 //		Address address2 = new Address("Belarus", "Minsk", "Leukova", "16", "34");
 //		Employee employee2 = new Logist();
