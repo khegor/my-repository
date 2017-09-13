@@ -1,3 +1,4 @@
+USE mydb;
 INSERT INTO MYDB.addresses (COUNTRY, CITY, STREET, HOME_NUMBER) VALUES ("BLR", "Minsk", "Leukova", 1),
 ("BLR", "Minsk", "Leukova", 3),
 ("BLR", "Minsk", "Mohileuskaya", 1),
@@ -36,3 +37,18 @@ INSERT INTO MYDB.STOREKEEPERS (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH, A
 ("Adolf", "Messer", "storekeeper", "1969-01-01", 10),
 ("Aram", "Safaryan", "storekeeper", "1988-05-12", 12);
 INSERT INTO MYDB.ORDERS (OWNER_ORGANISATION_NAME, OWNERSHIP_TYPE, OPERATION_TYPE, LOGISTS_ID) VALUES ("ASSTRA", "LTD", "TRANSPORTATION", 1);
+ALTER TABLE drivers_cars COMMENT = 'alter table operations';
+ALTER TABLE drivers_cars ADD CAR_AGE INT NOT NULL;
+ALTER TABLE drivers_cars MODIFY CAR_AGE TINYINT NOT NULL DEFAULT '0';
+INSERT INTO drivers_cars (CAR_MODEL, NUMBER, CAR_AGE) VALUES ("Alfa Romeo", "0132-7", 1),
+("Alfa Romeo", "0332-7", 2),
+("Audi", "2233-7", 2),
+("BMW", "6677-7", 2),
+("Lada", "1744-7", 2),
+("Alfa Romeo", "9090-7", 4);
+UPDATE drivers_cars SET CAR_MODEL='BMW' WHERE ID=3;
+SELECT * FROM drivers_cars;
+
+
+
+
