@@ -54,7 +54,9 @@ DELETE FROM drivers_cars WHERE ID=3;
 SET SQL_SAFE_UPDATES = 0;
 DELETE FROM drivers_cars WHERE CAR_AGE=4;
 SET SQL_SAFE_UPDATES = 1;
+ALTER TABLE drivers_cars DROP COLUMN CAR_AGE;
 SELECT * FROM drivers_cars;
+
 
 
 
