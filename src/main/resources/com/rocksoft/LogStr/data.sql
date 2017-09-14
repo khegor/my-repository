@@ -55,7 +55,8 @@ SET SQL_SAFE_UPDATES = 0;
 DELETE FROM drivers_cars WHERE CAR_AGE=4;
 SET SQL_SAFE_UPDATES = 1;
 ALTER TABLE drivers_cars DROP COLUMN CAR_AGE;
-INSERT INTO driver_has_drivers_cars (DRIVER_ID, DRIVERS_CARS_ID) VALUES (2, 6), (1, 7),
+INSERT INTO driver_has_drivers_cars (DRIVER_ID, DRIVERS_CARS_ID) VALUES (2, 6), 
+(1, 7),
 (2, 4),
 (2, 5),
 (1, 5),
@@ -63,6 +64,7 @@ INSERT INTO driver_has_drivers_cars (DRIVER_ID, DRIVERS_CARS_ID) VALUES (2, 6), 
 (3, 2),
 (4, 4),
 (5, 5);
+SELECT * FROM drivers LEFT JOIN drivers_cars USING(ID);
 SELECT * FROM driver_has_drivers_cars;
 
 
