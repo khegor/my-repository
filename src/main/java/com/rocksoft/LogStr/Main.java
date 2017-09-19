@@ -6,6 +6,9 @@ import java.io.File;
 
 import java.io.IOException;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -18,6 +21,7 @@ import javax.xml.parsers.SAXParserFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.fabric.jdbc.FabricMySQLConnection;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
+import com.mysql.jdbc.*;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -25,27 +29,22 @@ import org.xml.sax.SAXException;
 
 public class Main {
 
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
-    private static final String URL = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
-
     private static final Logger LOGGER = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws SQLException{
 
         try {
-            Driver driver = new FabricMySQLDriver();
-            DriverManager.registerDriver(driver);
-        } catch (SQLException ex) {
+            Class.forName(Utils.getConfig("driver")).newInstance();
+        } catch (Exception ex) {
             LOGGER.error("Driver registration error!");
             return;
         }
 
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(Utils.getConfig("url"), Utils.getConfig("username"), Utils.getConfig("password"));
               Statement statement = connection.createStatement()) {
 //            statement.execute("INSERT INTO mydb.DRIVER (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Sima\", \"Standartou\", \"driver\", 1, \"1992-08-05 18:19:03\");");
 //            statement.execute("DELETE FROM mydb.driver WHERE ESTABLISHED_POST =\"Director\"");
-            statement.execute("INSERT INTO mydb.DRIVER (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Oleg\", \"Green\", \"driver\", 6, \"1982-08-05\");");
+            statement.execute("INSERT INTO mydb.DRIVERS (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Oleg\", \"Green\", \"driver\", 7, \"1982-08-05\");");
         } catch (SQLException ex) {
             ex.printStackTrace();
             return;
