@@ -11,7 +11,7 @@ public class ConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
-    private static volatile ConnectionPool connectionPool;
+    private static ConnectionPool connectionPool;
     private volatile ArrayBlockingQueue<Connection> pool;
     private Integer poolSize;
     private volatile Integer connectionCount;
@@ -19,23 +19,18 @@ public class ConnectionPool {
     private ConnectionPool(Integer poolSize) {
         this.pool = new ArrayBlockingQueue<>(poolSize);
         this.poolSize = poolSize;
-        connectionCount = 0;
-    }
-
-    private synchronized void addAndTakeConnection() {
-        addConnection();
-        takeConnection();
+        this.connectionCount = 0;
     }
 
     public synchronized void addConnection() {
-        if(poolIsEmpty()) {
+        if (poolIsEmpty()) {
             pool.add(new Connection());
             LOGGER.info("Connection " + Thread.currentThread().getId() + " was created");
         }
     }
 
-    public synchronized void takeConnection() {
-        if(pool != null && !pool.isEmpty()) {
+    public synchronized void getConnection() {
+        if (pool != null && !pool.isEmpty()) {
             try {
                 pool.take();
                 connectionCount++;
@@ -43,33 +38,17 @@ public class ConnectionPool {
             } catch (InterruptedException e) {
                 LOGGER.error(e);
             }
-        } else if(poolIsFull()) {
-            waitForConnection();
-            takeConnection();
+        } else if (poolIsFull()) {
+            getConnection();
         }
     }
 
-    private synchronized void waitForConnection() {
-        while(poolIsFull()) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                LOGGER.error(e);
-            }
-        }
-    }
-
-    private void returnConnectionToPool() {
+    /**
+     * return connection to pool
+     */
+    private void closeConnection() {
         pool.add(new Connection());
         LOGGER.info("Connection " + Thread.currentThread().getId() + " was returned to pool");
-    }
-
-    private boolean poolIsEmpty() {
-        return pool != null && pool.isEmpty() || pool != null && connectionCount < poolSize;
-    }
-
-    private boolean poolIsFull() {
-        return pool != null && pool.isEmpty() && connectionCount.equals(poolSize);
     }
 
     public static ConnectionPool getInstance(Integer poolSize) {
@@ -85,9 +64,18 @@ public class ConnectionPool {
         return localInstance;
     }
 
+    private boolean poolIsEmpty() {
+        return pool != null && pool.isEmpty() || pool != null && connectionCount < poolSize;
+    }
+
+    private boolean poolIsFull() {
+        return pool != null && pool.isEmpty() && connectionCount.equals(poolSize);
+    }
+
     public void doSmth() {
-        addAndTakeConnection();
+        addConnection();
+        getConnection();
         LOGGER.info("Connection " + Thread.currentThread().getId() + " do smth");
-        returnConnectionToPool();
+        closeConnection();
     }
 }
