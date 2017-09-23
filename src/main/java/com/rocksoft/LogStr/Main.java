@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.fabric.jdbc.FabricMySQLConnection;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 import com.mysql.jdbc.*;
+import com.rocksoft.LogStr.cp.ConnectionPool;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -29,9 +30,23 @@ import org.xml.sax.SAXException;
 
 public class Main {
 
+
     private static final Logger LOGGER = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws SQLException{
+
+        int connectionPoolSize = 3;
+        int threadNumber = 5;
+
+        ConnectionPool cp = ConnectionPool.getInstance(connectionPoolSize);
+        for (int i = 0; i < threadNumber; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    cp.doSmth();
+                }
+            }).start();
+        }
 
         try {
             Class.forName(Utils.getConfig("driver")).newInstance();
@@ -42,14 +57,14 @@ public class Main {
 
         try (Connection connection = DriverManager.getConnection(Utils.getConfig("url"), Utils.getConfig("username"), Utils.getConfig("password"));
               Statement statement = connection.createStatement()) {
-//            statement.execute("INSERT INTO mydb.DRIVER (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Sima\", \"Standartou\", \"driver\", 1, \"1992-08-05 18:19:03\");");
+            statement.execute("INSERT INTO mydb.DRIVER (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Sima\", \"Standartou\", \"driver\", 1, \"1992-08-05 18:19:03\");");
 //            statement.execute("DELETE FROM mydb.driver WHERE ESTABLISHED_POST =\"Director\"");
-            statement.execute("INSERT INTO mydb.DRIVERS (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Oleg\", \"Green\", \"driver\", 7, \"1982-08-05\");");
+//            statement.execute("INSERT INTO mydb.DRIVERS (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Oleg\", \"Green\", \"driver\", 7, \"1982-08-05\");");
         } catch (SQLException ex) {
             ex.printStackTrace();
             return;
         }
-//        BasicConfigurator.configure();
+          BasicConfigurator.configure();
 //        File xml = new File("src/main/resources/com/rocksoft/LogStr/log.xml");
 //        SAXParserFactory parserF = SAXParserFactory.newInstance();
 //        Handler handler = new Handler();
