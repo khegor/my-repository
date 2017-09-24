@@ -23,14 +23,15 @@ public class ConnectionPool {
         this.connectionCount = 0;
     }
 
-    public synchronized void addConnection() {
+    public synchronized void addConnection(java.sql.Connection dbConnection) {
         if (poolIsEmpty()) {
-            pool.add(new Connection());
+            pool.add(new Connection(dbConnection, this));
             LOGGER.info("Connection " + Thread.currentThread().getId() + " was created");
         }
     }
 
-    public synchronized Connection getConnection() {
+    public synchronized Connection getConnection(java.sql.Connection dbConnection) {
+        addConnection(dbConnection);
         Connection connection = null;
         if (pool != null && !pool.isEmpty()) {
             try {
@@ -41,7 +42,7 @@ public class ConnectionPool {
                 LOGGER.error(e);
             }
         } else if (poolIsFull()) {
-            getConnection();
+            getConnection(dbConnection);
         }
         return connection;
     }
@@ -49,13 +50,8 @@ public class ConnectionPool {
     /**
      * return connection to pool
      */
-    private void closeConnection(Connection connection) {
-        try {
-            connection.getConnection().close();
-        }catch(SQLException e){
-            LOGGER.error(e);
-        }
-        pool.add(new Connection());
+    public void closeConnection(java.sql.Connection dbConnection) {
+        pool.add(new Connection(dbConnection, this));
         LOGGER.info("Connection " + Thread.currentThread().getId() + " was returned to pool");
     }
 
@@ -80,11 +76,11 @@ public class ConnectionPool {
         return pool != null && pool.isEmpty() && connectionCount.equals(poolSize);
     }
 
-    public synchronized void doSmth() {
+    /*public synchronized void doSmth() {
         addConnection();
         Connection connection = getConnection();
         LOGGER.info("Connection " + Thread.currentThread().getId() + " do smth");
         closeConnection(connection);
-    }
+    }*/
 }
 

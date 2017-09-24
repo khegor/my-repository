@@ -6,10 +6,18 @@ import java.io.File;
 
 import java.io.IOException;
 import java.sql.*;
+import java.sql.Blob;
+import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.Driver;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.Executor;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -22,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.fabric.jdbc.FabricMySQLConnection;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 import com.mysql.jdbc.*;
-import com.rocksoft.LogStr.cp.ConnectionPool;
+import com.rocksoft.LogStr.ConnectionPool;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -35,6 +43,8 @@ public class Main {
 
     public static void main(String[] args) throws SQLException{
 
+        BasicConfigurator.configure();
+
         int connectionPoolSize = 3;
         int threadNumber = 5;
 
@@ -43,19 +53,31 @@ public class Main {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    cp.doSmth();
+                    com.rocksoft.LogStr.Connection connection = null;
+                    try {
+                        connection = cp.getConnection(DriverManager.getConnection(Utils.getConfig("url"), Utils.getConfig("username"), Utils.getConfig("password")));
+                        connection.doSmth();
+                    } catch (SQLException e) {
+                       LOGGER.error(e);
+                    } finally {
+                        try {
+                            connection.close();
+                        } catch (SQLException e) {
+                            LOGGER.error(e);
+                        }
+                    }
                 }
             }).start();
         }
 
-        try {
+        /*try {
             Class.forName(Utils.getConfig("driver")).newInstance();
         } catch (Exception ex) {
             LOGGER.error("Driver registration error!");
             return;
-        }
+        }*/
 
-        try (Connection connection = DriverManager.getConnection(Utils.getConfig("url"), Utils.getConfig("username"), Utils.getConfig("password"));
+        /*try (Connection connection = DriverManager.getConnection(Utils.getConfig("url"), Utils.getConfig("username"), Utils.getConfig("password"));
               Statement statement = connection.createStatement()) {
             statement.execute("INSERT INTO mydb.DRIVER (NAME, SURNAME, ESTABLISHED_POST, ADDRESSES_ID, DATE_OF_BIRTH) VALUES (\"Sima\", \"Standartou\", \"driver\", 1, \"1992-08-05 18:19:03\");");
 //            statement.execute("DELETE FROM mydb.driver WHERE ESTABLISHED_POST =\"Director\"");
@@ -64,7 +86,7 @@ public class Main {
             ex.printStackTrace();
             return;
         }
-          BasicConfigurator.configure();
+          */
 //        File xml = new File("src/main/resources/com/rocksoft/LogStr/log.xml");
 //        SAXParserFactory parserF = SAXParserFactory.newInstance();
 //        Handler handler = new Handler();
