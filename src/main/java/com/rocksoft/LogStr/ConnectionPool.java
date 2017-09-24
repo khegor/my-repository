@@ -12,9 +12,9 @@ public class ConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
-    private static ConnectionPool connectionPool;
+    private static volatile ConnectionPool connectionPool;
     private volatile ArrayBlockingQueue<Connection> pool;
-    private Integer poolSize;
+    private volatile Integer poolSize;
     private volatile Integer connectionCount;
 
     private ConnectionPool(Integer poolSize) {
@@ -33,6 +33,14 @@ public class ConnectionPool {
     public synchronized Connection getConnection(java.sql.Connection dbConnection) {
         addConnection(dbConnection);
         Connection connection = null;
+
+        if (poolIsFull()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                LOGGER.error(e);
+            }
+        }
         if (pool != null && !pool.isEmpty()) {
             try {
                 connection = pool.take();
@@ -41,8 +49,6 @@ public class ConnectionPool {
             } catch (InterruptedException e) {
                 LOGGER.error(e);
             }
-        } else if (poolIsFull()) {
-            getConnection(dbConnection);
         }
         return connection;
     }
@@ -50,9 +56,10 @@ public class ConnectionPool {
     /**
      * return connection to pool
      */
-    public void closeConnection(java.sql.Connection dbConnection) {
+    public synchronized void closeConnection(java.sql.Connection dbConnection) {
         pool.add(new Connection(dbConnection, this));
         LOGGER.info("Connection " + Thread.currentThread().getId() + " was returned to pool");
+        notifyAll();
     }
 
     public static ConnectionPool getInstance(Integer poolSize) {
@@ -69,7 +76,7 @@ public class ConnectionPool {
     }
 
     private boolean poolIsEmpty() {
-        return pool != null && pool.isEmpty() || pool != null && connectionCount < poolSize;
+        return pool != null && pool.isEmpty() && connectionCount < poolSize;
     }
 
     private boolean poolIsFull() {

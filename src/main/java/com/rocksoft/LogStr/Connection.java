@@ -13,6 +13,8 @@ public class Connection implements AutoCloseable{
 
     private static final Logger LOGGER = Logger.getLogger(Connection.class);
 
+    private final Object lock = new Object();
+
     private java.sql.Connection dbConnection;
     private ConnectionPool connectionPool;
 

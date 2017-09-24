@@ -61,6 +61,9 @@ public class Main {
                        LOGGER.error(e);
                     } finally {
                         try {
+                            if(connection == null) {
+                                LOGGER.info(Thread.currentThread().getId());
+                            }
                             connection.close();
                         } catch (SQLException e) {
                             LOGGER.error(e);
@@ -85,8 +88,7 @@ public class Main {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return;
-        }
-          */
+        }*/
 //        File xml = new File("src/main/resources/com/rocksoft/LogStr/log.xml");
 //        SAXParserFactory parserF = SAXParserFactory.newInstance();
 //        Handler handler = new Handler();
