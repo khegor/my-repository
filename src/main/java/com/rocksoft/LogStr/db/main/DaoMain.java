@@ -1,7 +1,9 @@
 package com.rocksoft.LogStr.db.main;
 
 import com.rocksoft.LogStr.db.models.Address;
+import com.rocksoft.LogStr.db.models.DriverCar;
 import com.rocksoft.LogStr.db.servces.AddressService;
+import com.rocksoft.LogStr.db.servces.DriverCarService;
 import org.apache.log4j.BasicConfigurator;
 
 import java.util.List;
@@ -18,5 +20,8 @@ public class DaoMain {
         Address address = addressService.getAddressById(1);
         List<Address> addresses = addressService.getAllAddresses();
         System.out.println(address);
+
+        DriverCarService driverCarService = new DriverCarService();
+        DriverCar driverCar = driverCarService.getDriverCarById(1);
     }
 }
