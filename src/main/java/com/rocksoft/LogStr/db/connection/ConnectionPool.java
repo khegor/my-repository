@@ -1,8 +1,7 @@
-package com.rocksoft.LogStr;
+package com.rocksoft.LogStr.db.connection;
 
 import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -37,6 +36,7 @@ public class ConnectionPool {
         if (poolIsFull()) {
             try {
                 wait();
+                LOGGER.info("Thread " + Thread.currentThread().getId() + " is waiting");
             } catch (InterruptedException e) {
                 LOGGER.error(e);
             }
@@ -59,7 +59,7 @@ public class ConnectionPool {
     public synchronized void closeConnection(java.sql.Connection dbConnection) {
         pool.add(new Connection(dbConnection, this));
         LOGGER.info("Connection " + Thread.currentThread().getId() + " was returned to pool");
-        notifyAll();
+        notify();
     }
 
     public static ConnectionPool getInstance(Integer poolSize) {

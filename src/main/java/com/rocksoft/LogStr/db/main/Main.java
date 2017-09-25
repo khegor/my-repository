@@ -1,40 +1,14 @@
-package com.rocksoft.LogStr; /**
+package com.rocksoft.LogStr.db.main; /**
  * Created by Esenin on 26.08.2017.
  */
 
-import java.io.File;
-
-import java.io.IOException;
 import java.sql.*;
-import java.sql.Blob;
-import java.sql.CallableStatement;
-import java.sql.Clob;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.Driver;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.fabric.jdbc.FabricMySQLConnection;
-import com.mysql.fabric.jdbc.FabricMySQLDriver;
-import com.mysql.jdbc.*;
-import com.rocksoft.LogStr.ConnectionPool;
+import com.rocksoft.LogStr.db.connection.ConnectionPool;
+import com.rocksoft.LogStr.db.Utils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-import org.xml.sax.SAXException;
 
 public class Main {
 
@@ -53,10 +27,12 @@ public class Main {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    com.rocksoft.LogStr.Connection connection = null;
+                    com.rocksoft.LogStr.db.connection.Connection connection = null;
                     try {
                         connection = cp.getConnection(DriverManager.getConnection(Utils.getConfig("url"), Utils.getConfig("username"), Utils.getConfig("password")));
-                        connection.doSmth();
+                        PreparedStatement preparedStatement = connection.getConnection().prepareStatement("SELECT * FROM addresses");
+                        ResultSet resultSet = preparedStatement.executeQuery();
+                        System.out.println("Current result set " + resultSet.next());
                     } catch (SQLException e) {
                        LOGGER.error(e);
                     } finally {

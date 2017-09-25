@@ -4,6 +4,7 @@ package com.rocksoft.LogStr; /**
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rocksoft.LogStr.db.models.*;
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

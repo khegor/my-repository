@@ -1,13 +1,13 @@
-package com.rocksoft.LogStr;
+package com.rocksoft.LogStr.db.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.rocksoft.LogStr.db.main.Main;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonSetter;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,10 +15,13 @@ import java.util.Date;
 /**
  * Created by Esenin on 26.08.2017.
  */
-@XmlRootElement(name = "worker")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Worker {
 
+@XmlRootElement(name = "admin")
+@JsonIgnoreProperties(ignoreUnknown = true)
+
+public class Administration extends AbstractEntity{
+
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
     @JsonProperty
     private String name;
     @JsonProperty
@@ -28,15 +31,13 @@ public class Worker {
     @JsonProperty
     private Address address;
 
-    private static final Logger LOGGER = Logger.getLogger(Worker.class);
     @XmlElement(type=Date.class)
     private Date dateOfBirth;
 
     public String getName() {
         return name;
     }
-    @XmlElement (name = "name")
-    @JsonSetter(value = "name")
+    @XmlElement(name = "name")
     public void setName(String name) {
         this.name = name;
     }
@@ -44,8 +45,7 @@ public class Worker {
     public String getSurname() {
         return surname;
     }
-    @XmlElement (name = "surname")
-    @JsonSetter(value = "surname")
+    @XmlElement(name = "surname")
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -53,8 +53,7 @@ public class Worker {
     public String getEstablishedPost() {
         return establishedPost;
     }
-    @XmlElement (name = "establishedPost")
-    @JsonSetter (value = "establishedPost")
+    @XmlElement(name = "establishedPost")
     public void setEstablishedPost(String establishedPost) {
         this.establishedPost = establishedPost;
     }
@@ -62,8 +61,7 @@ public class Worker {
     public Address getAddress() {
         return address;
     }
-    @XmlElement (name = "address")
-    @JsonSetter(value = "address")
+    @XmlElement(name = "address")
     public void setAddress(Address address) {
         this.address = address;
     }
@@ -83,7 +81,7 @@ public class Worker {
         try {
             this.dateOfBirth = simpleDateFormat.parse(dateOfBirth);
         } catch (ParseException e) {
-            LOGGER.info(e);
+            LOGGER.error(e);
         }
     }
 }

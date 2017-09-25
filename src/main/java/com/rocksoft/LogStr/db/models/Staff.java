@@ -1,4 +1,4 @@
-package com.rocksoft.LogStr; /**
+package com.rocksoft.LogStr.db.models; /**
  * Created by Esenin on 26.08.2017.
  */
 

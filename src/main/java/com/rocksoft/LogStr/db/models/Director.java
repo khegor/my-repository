@@ -1,6 +1,4 @@
-package com.rocksoft.LogStr;
-
-import com.rocksoft.LogStr.Administration;
+package com.rocksoft.LogStr.db.models;
 
 /**
  * Created by Esenin on 26.08.2017.

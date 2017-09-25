@@ -1,4 +1,4 @@
-package com.rocksoft.LogStr;
+package com.rocksoft.LogStr.db.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement (name = "address")
 @JsonRootName(value = "address")
-public class Address {
+public class Address extends AbstractEntity {
 
     @JsonProperty
     private String country;

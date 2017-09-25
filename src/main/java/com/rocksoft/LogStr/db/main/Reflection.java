@@ -1,4 +1,6 @@
-package com.rocksoft.LogStr;
+package com.rocksoft.LogStr.db.main;
+
+import com.rocksoft.LogStr.db.models.Address;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

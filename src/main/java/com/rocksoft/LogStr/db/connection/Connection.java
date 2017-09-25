@@ -1,10 +1,8 @@
-package com.rocksoft.LogStr;
+package com.rocksoft.LogStr.db.connection;
 
 import org.apache.log4j.Logger;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Created by Esenin on 21.09.2017.
@@ -16,7 +14,7 @@ public class Connection implements AutoCloseable{
     private final Object lock = new Object();
 
     private java.sql.Connection dbConnection;
-    private ConnectionPool connectionPool;
+    private volatile ConnectionPool connectionPool;
 
     public Connection(java.sql.Connection connection, ConnectionPool connectionPool){
         this.dbConnection = connection;
@@ -26,9 +24,6 @@ public class Connection implements AutoCloseable{
     public java.sql.Connection getConnection(){
         return dbConnection;
     }
-    public Statement createStatement() throws SQLException {
-        return dbConnection.createStatement();
-    }
 
     @Override
     public void close() throws SQLException {
@@ -37,6 +32,6 @@ public class Connection implements AutoCloseable{
     }
 
     public void doSmth() {
-        System.out.println("Hui " + Thread.currentThread().getId());
+        System.out.println("Hello " + Thread.currentThread().getId());
     }
 }
