@@ -23,5 +23,7 @@ public class DaoMain {
 
         DriverCarService driverCarService = new DriverCarService();
         DriverCar driverCar = driverCarService.getDriverCarById(1);
+        List<DriverCar> driverCars = driverCarService.getAllDriverCars();
+        System.out.println(driverCar);
     }
 }

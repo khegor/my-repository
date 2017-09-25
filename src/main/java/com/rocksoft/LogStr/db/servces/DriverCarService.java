@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class DriverCarService {
 
+
     private DriverCarDao driverCarDao = new DriverCarDaoImpl();
 
     public void createDriverCar(DriverCar driver) {
@@ -21,7 +22,7 @@ public class DriverCarService {
         return driverCarDao.getDriverCarById(id);
     }
 
-    public List<DriverCar> getAllAddresses() {
+    public List<DriverCar> getAllDriverCars() {
         return driverCarDao.getAllDriverCar();
     }
 

@@ -1,5 +1,6 @@
 package com.rocksoft.LogStr.db.dao;
 
+import com.rocksoft.LogStr.db.models.Address;
 import com.rocksoft.LogStr.db.models.DriverCar;
 
 import java.sql.PreparedStatement;
@@ -50,11 +51,13 @@ public class DriverCarDaoImpl extends AbstarctDao implements DriverCarDao {
             resultSet.next();
 
             driverCar = new DriverCar();
+
             driverCar.setId(resultSet.getLong("ID"));
             driverCar.setName(resultSet.getString("NAME"));
             driverCar.setSurname(resultSet.getString("SURNAME"));
             driverCar.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
             driverCar.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
+
 
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -71,7 +74,7 @@ public class DriverCarDaoImpl extends AbstarctDao implements DriverCarDao {
 
     @Override
     public List<DriverCar> getAllDriverCar() {
-        
+
         PreparedStatement preparedStatement = getPreparedStatement("SELECT * FROM drivers");
         DriverCar driverCar = null;
         List<DriverCar> driverCars = new ArrayList<>();
