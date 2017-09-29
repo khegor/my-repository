@@ -1,12 +1,10 @@
-package com.rocksoft.LogStr.db.main; /**
+package com.rocksoft.LogStr.db.main.all; /**
  * Created by Esenin on 26.08.2017.
  */
 
 import java.sql.*;
-import java.sql.PreparedStatement;
 
-import com.rocksoft.LogStr.db.connection.ConnectionPool;
-import com.rocksoft.LogStr.db.Utils;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
@@ -18,36 +16,6 @@ public class Main {
     public static void main(String[] args) throws SQLException{
 
         BasicConfigurator.configure();
-
-        int connectionPoolSize = 3;
-        int threadNumber = 5;
-
-        ConnectionPool cp = ConnectionPool.getInstance(connectionPoolSize);
-        for (int i = 0; i < threadNumber; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    com.rocksoft.LogStr.db.connection.Connection connection = null;
-                    try {
-                        connection = cp.getConnection(DriverManager.getConnection(Utils.getConfig("url"), Utils.getConfig("username"), Utils.getConfig("password")));
-                        PreparedStatement preparedStatement = connection.getConnection().prepareStatement("SELECT * FROM addresses");
-                        ResultSet resultSet = preparedStatement.executeQuery();
-                        System.out.println("Current result set " + resultSet.next());
-                    } catch (SQLException e) {
-                       LOGGER.error(e);
-                    } finally {
-                        try {
-                            if(connection == null) {
-                                LOGGER.info(Thread.currentThread().getId());
-                            }
-                            connection.close();
-                        } catch (SQLException e) {
-                            LOGGER.error(e);
-                        }
-                    }
-                }
-            }).start();
-        }
 
         /*try {
             Class.forName(Utils.getConfig("driver")).newInstance();

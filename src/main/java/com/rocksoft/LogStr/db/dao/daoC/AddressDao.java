@@ -1,4 +1,4 @@
-package com.rocksoft.LogStr.db.dao;
+package com.rocksoft.LogStr.db.dao.daoC;
 
 import com.rocksoft.LogStr.db.models.Address;
 

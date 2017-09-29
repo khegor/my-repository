@@ -1,7 +1,7 @@
 package com.rocksoft.LogStr.db.servces;
 
-import com.rocksoft.LogStr.db.dao.DriverCarDao;
-import com.rocksoft.LogStr.db.dao.DriverCarDaoImpl;
+import com.rocksoft.LogStr.db.dao.daoC.DriverCarDao;
+import com.rocksoft.LogStr.db.dao.daoImpl.DriverCarDaoImpl;
 import com.rocksoft.LogStr.db.models.DriverCar;
 
 import java.util.List;

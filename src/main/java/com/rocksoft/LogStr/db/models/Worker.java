@@ -9,13 +9,14 @@ import javax.xml.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Esenin on 26.08.2017.
  */
 @XmlRootElement(name = "worker")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Worker extends AbstractEntity {
+public abstract class Worker extends AbstractEntity {
 
     @JsonProperty
     private String name;
@@ -25,6 +26,7 @@ public class Worker extends AbstractEntity {
     private String establishedPost;
     @JsonProperty
     private Address address;
+    private List<Car> cars;
 
     private static final Logger LOGGER = Logger.getLogger(Worker.class);
     @XmlElement(type=Date.class)
@@ -65,6 +67,19 @@ public class Worker extends AbstractEntity {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     @Override
     public String toString(){
         return getName() + " " + getSurname() + " " + getEstablishedPost() + " " + getAddress() + " " + dateOfBirth.toString();

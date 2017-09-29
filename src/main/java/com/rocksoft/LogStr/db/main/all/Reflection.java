@@ -1,4 +1,4 @@
-package com.rocksoft.LogStr.db.main;
+package com.rocksoft.LogStr.db.main.all;
 
 import com.rocksoft.LogStr.db.models.Address;
 

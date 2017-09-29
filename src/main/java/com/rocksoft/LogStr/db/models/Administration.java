@@ -3,7 +3,7 @@ package com.rocksoft.LogStr.db.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.rocksoft.LogStr.db.main.Main;
+import com.rocksoft.LogStr.db.main.all.Main;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +19,7 @@ import java.util.Date;
 @XmlRootElement(name = "admin")
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class Administration extends AbstractEntity{
+public abstract class Administration extends AbstractEntity{
 
     private static final Logger LOGGER = Logger.getLogger(Main.class);
     @JsonProperty
