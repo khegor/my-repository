@@ -1,7 +1,6 @@
 package com.rocksoft.LogStr.db.dao;
 
 import com.rocksoft.LogStr.cp.ConnectionPool;
-import com.rocksoft.LogStr.db.Utils;
 import com.rocksoft.LogStr.db.connection.for_db.DbConnectionPool;
 import org.apache.log4j.Logger;
 

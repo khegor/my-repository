@@ -1,7 +1,7 @@
 package com.rocksoft.LogStr.db.dao.daoImpl;
 
 import com.rocksoft.LogStr.db.dao.AbstarctDao;
-import com.rocksoft.LogStr.db.dao.daoC.DriverCarDao;
+import com.rocksoft.LogStr.db.dao.daoInterf.DriverCarDao;
 import com.rocksoft.LogStr.db.models.Address;
 import com.rocksoft.LogStr.db.models.Car;
 import com.rocksoft.LogStr.db.models.DriverCar;

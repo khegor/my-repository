@@ -1,4 +1,4 @@
-package com.rocksoft.LogStr.db.dao.daoC;
+package com.rocksoft.LogStr.db.dao.daoInterf;
 
 import com.rocksoft.LogStr.db.models.Director;
 
