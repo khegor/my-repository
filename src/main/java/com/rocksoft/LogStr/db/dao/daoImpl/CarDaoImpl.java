@@ -4,10 +4,14 @@ package com.rocksoft.LogStr.db.dao.daoImpl;
 import com.rocksoft.LogStr.db.dao.AbstarctDao;
 import com.rocksoft.LogStr.db.dao.daoInterf.CarDao;
 import com.rocksoft.LogStr.db.models.Car;
+import com.rocksoft.LogStr.db.models.DriverCar;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Esenin on 27.09.2017.
@@ -40,10 +44,11 @@ public class CarDaoImpl extends AbstarctDao implements CarDao {
         }
     }
 
-    @Override
-    public Car getCarById(long id) {
 
-        /*Car car = null;
+    @Override
+    public List<Car> getAllCars() {
+
+        Car car = null;
         DriverCar driverCar = null;
         List<Car> cars = new ArrayList<>();
         ResultSet resultSet = null;
@@ -52,8 +57,7 @@ public class CarDaoImpl extends AbstarctDao implements CarDao {
         PreparedStatement preparedStatement = null;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT D.ID, D.SURNAME, DC.CAR_MODEL, DC.NUMBER FROM DRIVERS D JOIN DRIVER_HAS_DRIVERS_CARS DHDC ON D.ID = DHDC.DRIVER_ID JOIN DRIVERS_CARS DC ON DHDC.DRIVERS_CARS_ID = DC.ID WHERE D.ID = ?");
-            preparedStatement.setLong(1, id);
+            preparedStatement = connection.prepareStatement("SELECT D.ID, D.SURNAME, DC.CAR_MODEL, DC.NUMBER FROM DRIVERS D JOIN DRIVER_HAS_DRIVERS_CARS DHDC ON D.ID = DHDC.DRIVER_ID JOIN DRIVERS_CARS DC ON DHDC.DRIVERS_CARS_ID = DC.ID");
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
@@ -71,7 +75,7 @@ public class CarDaoImpl extends AbstarctDao implements CarDao {
 
         } catch (Exception e) {
             LOGGER.error(e);
-     } finally {
+        } finally {
             try {
                 preparedStatement.close();
                 resultSet.close();
@@ -79,10 +83,24 @@ public class CarDaoImpl extends AbstarctDao implements CarDao {
                 e.printStackTrace();
             }
             closeConnection(connection);
+        }return cars;
+    }
+
+
+    @Override
+    public Car getCarById(long id) {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM drivers_cars DC INNER JOIN drivers D ON DC.ID = D.ID");
+        } catch (Exception e) {
+          LOGGER.error(e);
         }
 
 
-*/
         return null;
     }
 

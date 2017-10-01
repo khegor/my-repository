@@ -60,7 +60,9 @@ public class DriverCarDaoImpl extends AbstarctDao implements DriverCarDao {
         PreparedStatement preparedStatement = null;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT D.ID, D.SURNAME, DC.CAR_MODEL, DC.NUMBER FROM DRIVERS D JOIN DRIVER_HAS_DRIVERS_CARS DHDC ON D.ID = DHDC.DRIVER_ID JOIN DRIVERS_CARS DC ON DHDC.DRIVERS_CARS_ID = DC.ID JOIN ADDRESSES A ON D.ADDRESSES_ID = A.ID WHERE D.ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT D.ID, D.SURNAME, DC.CAR_MODEL, DC.NUMBER FROM DRIVERS D " +
+                    "JOIN DRIVER_HAS_DRIVERS_CARS DHDC ON D.ID = DHDC.DRIVER_ID JOIN DRIVERS_CARS DC ON DHDC.DRIVERS_CARS_ID = DC.ID " +
+                    "JOIN ADDRESSES A ON D.ADDRESSES_ID = A.ID WHERE D.ID = ?");
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();

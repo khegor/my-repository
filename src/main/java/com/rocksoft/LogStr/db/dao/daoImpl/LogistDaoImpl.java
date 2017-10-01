@@ -1,9 +1,9 @@
 package com.rocksoft.LogStr.db.dao.daoImpl;
 
 import com.rocksoft.LogStr.db.dao.AbstarctDao;
-import com.rocksoft.LogStr.db.dao.daoInterf.DirectorDao;
+import com.rocksoft.LogStr.db.dao.daoInterf.LogistDao;
 import com.rocksoft.LogStr.db.models.Address;
-import com.rocksoft.LogStr.db.models.Director;
+import com.rocksoft.LogStr.db.models.Logist;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,30 +11,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Esenin on 26.09.2017.
+ * Created by Esenin on 29.09.2017.
  */
-public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
+public class LogistDaoImpl extends AbstarctDao implements LogistDao{
 
 
     @Override
-    public void createDirector(Director director) {
+    public void createLogist(Logist logist) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO directors (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH) " +
+            preparedStatement = connection.prepareStatement("INSERT INTO logists (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH) " +
                     "VALUES (?, ?, ?, ?)");
-            preparedStatement.setString(1, director.getName());
-            preparedStatement.setString(2, director.getSurname());
-            preparedStatement.setString(3, director.getEstablishedPost());
-            preparedStatement.setString(4, String.valueOf(director.getDateOfBirth()));
-
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
+            preparedStatement.setString(1, logist.getName());
+            preparedStatement.setString(2, logist.getSurname());
+            preparedStatement.setString(3, logist.getEstablishedPost());
+            preparedStatement.setString(4, String.valueOf(logist.getDateOfBirth()));
+        } catch(Exception e){
             LOGGER.error(e);
-        }finally {
+            } finally {
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -44,37 +42,38 @@ public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
         }
     }
 
+
     @Override
-    public Director getDirectorById(long id) {
+    public Logist getLogistById(long id) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Director director = null;
+        Logist logist = null;
         Address address = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM directors D JOIN ADDRESSES A ON A.ID=D.ADDRESSES_ID " +
-                    "WHERE D.ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM logists L JOIN ADDRESSES A ON A.ID=L.ADDRESSES_ID " +
+                    "WHERE L.ID = ?");
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
-            director = new Director();
+            logist = new Logist();
             address = new Address();
 
-            director.setId(resultSet.getLong("ID"));
-            director.setName(resultSet.getString("NAME"));
-            director.setSurname(resultSet.getString("SURNAME"));
-            director.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
-            director.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
+            logist.setId(resultSet.getLong("ID"));
+            logist.setName(resultSet.getString("NAME"));
+            logist.setSurname(resultSet.getString("SURNAME"));
+            logist.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
+            logist.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
 
             address.setCountry(resultSet.getString("COUNTRY"));
             address.setCity(resultSet.getString("CITY"));
             address.setStreet(resultSet.getString("STREET"));
             address.setHomeNumber(resultSet.getString("HOME_NUMBER"));
-            director.setAddress(address);
+            logist.setAddress(address);
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -87,31 +86,32 @@ public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
             }
             closeConnection(connection);
         }
-        return director;
+        return logist;
     }
 
+
     @Override
-    public void updateDirector(Director director) {
+    public void updateLogist(Logist logist) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE directors SET NAME = ?, SURNAME = ?, ESTABLISHED_POST = ?, DATE_OF_BIRTH = ? " +
+            preparedStatement = connection.prepareStatement("UPDATE logists SET NAME = ?, SURNAME = ?, ESTABLISHED_POST = ?, DATE_OF_BIRTH = ? " +
                     "WHERE ID = ?");
 
-            preparedStatement.setString(1, director.getName());
-            preparedStatement.setString(2, director.getSurname());
-            preparedStatement.setString(3, director.getEstablishedPost());
-            preparedStatement.setString(4, String.valueOf(director.getDateOfBirth()));
-            preparedStatement.setLong(5, director.getId());
+            preparedStatement.setString(1, logist.getName());
+            preparedStatement.setString(2, logist.getSurname());
+            preparedStatement.setString(3, logist.getEstablishedPost());
+            preparedStatement.setString(4, String.valueOf(logist.getDateOfBirth()));
+            preparedStatement.setLong(5, logist.getId());
 
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
             LOGGER.error(e);
-    } finally {
+        } finally {
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -120,15 +120,16 @@ public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
         }
     }
 
+
     @Override
-    public void deleteDirectorById(long id) {
+    public void deleteLogistById(long id) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM directors WHERE ID = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM logists WHERE ID = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
         } catch (Exception e) {
