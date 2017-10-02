@@ -27,6 +27,7 @@ public abstract class Worker extends AbstractEntity {
     @JsonProperty
     private Address address;
     private List<Car> cars;
+    private List<Orders> orders;
 
     private static final Logger LOGGER = Logger.getLogger(Worker.class);
     @XmlElement(type=Date.class)
@@ -74,6 +75,9 @@ public abstract class Worker extends AbstractEntity {
 
     public void setCars(List<Car> cars) {
         this.cars = cars;
+    }
+    public void setOrders(List<Orders>orders){
+        this.orders = orders;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {

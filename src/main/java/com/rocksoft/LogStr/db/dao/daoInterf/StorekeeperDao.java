@@ -7,7 +7,7 @@ import com.rocksoft.LogStr.db.models.Storekeeper;
  */
 public interface StorekeeperDao {
 
-    void createLogist(Storekeeper storekeeper);
+    void createStorekeeper(Storekeeper storekeeper);
     Storekeeper getStorekeeperById(long id);
     void updateStorekeeper(Storekeeper storekeeper);
     void deleteStorekeeperById(long id);

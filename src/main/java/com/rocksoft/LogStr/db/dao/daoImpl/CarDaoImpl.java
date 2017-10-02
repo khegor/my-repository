@@ -21,6 +21,7 @@ public class CarDaoImpl extends AbstarctDao implements CarDao {
 
     @Override
     public void createCar(Car cars) {
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -92,25 +93,82 @@ public class CarDaoImpl extends AbstarctDao implements CarDao {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Car car = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM drivers_cars DC INNER JOIN drivers D ON DC.ID = D.ID");
+            preparedStatement = connection.prepareStatement("SELECT * FROM drivers_cars DC INNER JOIN drivers D ON DC.ID = D.ID WHERE DC.ID = ?");
+
+            preparedStatement.setLong(1, id);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            car = new Car();
+            car.setId(resultSet.getLong("ID"));
+            car.setCarModel(resultSet.getString("CAR_MODEL"));
+            car.setNumber(resultSet.getString("NUMBER"));
+
         } catch (Exception e) {
           LOGGER.error(e);
-        }
-
-
-        return null;
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+            closeConnection(connection);
+        }  return car;
     }
+
 
     @Override
     public void updateDriversCars(Car cars) {
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE drivers_cars SET CAR_MODEL = ?, NUMBER = ? WHERE ID = ?");
+            preparedStatement.setString(1, cars.getCarModel());
+            preparedStatement.setString(2, cars.getNumber());
+            preparedStatement.setLong(3, cars.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error(e);
+        }finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+            closeConnection(connection);
+        }
     }
 
     @Override
     public void deleteDriversCars(long id) {
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM drivers_cars WHERE ID = ?");
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+        } catch (Exception e) {
+
+            LOGGER.error(e);
+        }finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+            closeConnection(connection);
+        }
     }
 }
