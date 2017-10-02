@@ -1,15 +1,15 @@
 package com.rocksoft.LogStr.db.main;
 
-import com.rocksoft.LogStr.db.dao.daoImpl.CarDaoImpl;
-import com.rocksoft.LogStr.db.dao.daoImpl.DirectorDaoImpl;
-import com.rocksoft.LogStr.db.models.Address;
+
 import com.rocksoft.LogStr.db.models.Director;
 import com.rocksoft.LogStr.db.models.DriverCar;
-import com.rocksoft.LogStr.db.servces.AddressService;
+import com.rocksoft.LogStr.db.models.Orders;
 import com.rocksoft.LogStr.db.servces.DirectorService;
 import com.rocksoft.LogStr.db.servces.DriverCarService;
+import com.rocksoft.LogStr.db.servces.OrdersService;
 import org.apache.log4j.BasicConfigurator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +25,9 @@ public class DaoMain {
         Director director = directorService.getDirectorById(1);
         System.out.println(director);
 
+        DriverCarService driverCarService = new DriverCarService();
+        DriverCar driverCar = driverCarService.getDriverCarById(1);
+        System.out.println(driverCar);
 
     }
 }

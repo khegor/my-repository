@@ -55,21 +55,32 @@ public class DriverCarDaoImpl extends AbstarctDao implements DriverCarDao {
         DriverCar driverCar = null;
         List<Car> cars = new ArrayList<>();
         ResultSet resultSet = null;
+        Address address = null;
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT D.ID, D.NAME, D.SURNAME, D.ESTABLISHED_POST, D.DATE_OF_BIRTH, DC.CAR_MODEL, DC.NUMBER FROM DRIVERS D " +
-                    "JOIN DRIVER_HAS_DRIVERS_CARS DHDC ON D.ID = DHDC.DRIVER_ID JOIN DRIVERS_CARS DC ON DHDC.DRIVERS_CARS_ID = DC.ID " +
+            preparedStatement = connection.prepareStatement("SELECT D.ID, D.NAME, D.SURNAME, D.ESTABLISHED_POST, D.DATE_OF_BIRTH, DC.CAR_MODEL, DC.NUMBER, A.COUNTRY, A.CITY, A.STREET, A.HOME_NUMBER FROM DRIVERS D JOIN DRIVER_HAS_DRIVERS_CARS DHDC ON D.ID = DHDC.DRIVER_ID JOIN DRIVERS_CARS DC ON DHDC.DRIVERS_CARS_ID = DC.ID \n" +
                     "JOIN ADDRESSES A ON D.ADDRESSES_ID = A.ID WHERE D.ID = ?");
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
             driverCar = new DriverCar();
+            address = new Address();
             driverCar.setId(resultSet.getLong("ID"));
+            driverCar.setName(resultSet.getString("NAME"));
             driverCar.setSurname(resultSet.getString("SURNAME"));
+            driverCar.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
+            driverCar.setDateOfBirth(resultSet.getDate("DATE_OF_BIRTH"));
+
+            address.setCountry(resultSet.getString("COUNTRY"));
+            address.setCity(resultSet.getString("CITY"));
+            address.setStreet(resultSet.getString("STREET"));
+            address.setHomeNumber(resultSet.getString("HOME_NUMBER"));
+            driverCar.setAddress(address);
+
             resultSet.previous();
             while(resultSet.next()) {
                 car = new Car();

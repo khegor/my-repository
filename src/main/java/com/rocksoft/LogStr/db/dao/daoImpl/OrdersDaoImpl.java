@@ -85,7 +85,7 @@ public class OrdersDaoImpl extends AbstarctDao implements OrdersDao {
                 preparedStatement.close();
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+               LOGGER.error(e);
             }
             closeConnection(connection);
         }return orders;
