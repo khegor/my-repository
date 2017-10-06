@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordersMapping">
+    <select id="getOrdersById" resultMap="ordersMap">
+        SELECT
+            O.ID,
+            O.OWNERSHIP_TYPE,
+            O.OWNER_ORGANISATION_NAME,
+            O.OPERATION_TYPE
+        FROM orders O
+        WHERE O.ID = #{id}
+    </select>
+    <resultMap id="ordersMap" type="com.rocksoft.LogStr.db.models.Orders" autoMapping="false">
+        <id property="id" column="ID"/>
+        <result property="ownerOrganisationName" column="OWNER_ORGANISATION_NAME"/>
+        <result property="ownershipType" column="OWNERSHIP_TYPE"/>
+        <result property="operationType" column="OPERATION_TYPE"/>
+    </resultMap>
+</mapper>

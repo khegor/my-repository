@@ -1,6 +1,6 @@
 package com.rocksoft.LogStr.db.servces;
 
-import com.rocksoft.LogStr.db.dao.daoImpl.StorekeeperDaoImpl;
+import com.rocksoft.LogStr.db.dao.Impl.StorekeeperDaoImpl;
 import com.rocksoft.LogStr.db.models.Storekeeper;
 
 /**

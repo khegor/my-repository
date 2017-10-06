@@ -1,7 +1,7 @@
-package com.rocksoft.LogStr.db.dao.daoImpl;
+package com.rocksoft.LogStr.db.dao.Impl;
 
 import com.rocksoft.LogStr.db.dao.AbstarctDao;
-import com.rocksoft.LogStr.db.dao.daoInterf.HeadOfDepartmentDao;
+import com.rocksoft.LogStr.db.dao.HeadOfDepartmentDao;
 import com.rocksoft.LogStr.db.models.Address;
 import com.rocksoft.LogStr.db.models.HeadOfDepartment;
 

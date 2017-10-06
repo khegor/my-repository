@@ -1,10 +1,9 @@
-package com.rocksoft.LogStr.db.dao.daoImpl;
+package com.rocksoft.LogStr.db.dao.Impl;
 
 import com.rocksoft.LogStr.db.dao.AbstarctDao;
-import com.rocksoft.LogStr.db.dao.daoInterf.StorekeeperDao;
+import com.rocksoft.LogStr.db.dao.DirectorDao;
 import com.rocksoft.LogStr.db.models.Address;
-import com.rocksoft.LogStr.db.models.Logist;
-import com.rocksoft.LogStr.db.models.Storekeeper;
+import com.rocksoft.LogStr.db.models.Director;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,28 +11,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Esenin on 29.09.2017.
+ * Created by Esenin on 26.09.2017.
  */
-public class StorekeeperDaoImpl extends AbstarctDao implements StorekeeperDao{
+public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
 
 
     @Override
-    public void createStorekeeper(Storekeeper storekeeper) {
+    public void createDirector(Director director) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO storekeepers (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH) " +
+            preparedStatement = connection.prepareStatement("INSERT INTO directors (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH) " +
                     "VALUES (?, ?, ?, ?)");
-            preparedStatement.setString(1, storekeeper.getName());
-            preparedStatement.setString(2, storekeeper.getSurname());
-            preparedStatement.setString(3, storekeeper.getEstablishedPost());
-            preparedStatement.setString(4, String.valueOf(storekeeper.getDateOfBirth()));
-        } catch(Exception e){
+            preparedStatement.setString(1, director.getName());
+            preparedStatement.setString(2, director.getSurname());
+            preparedStatement.setString(3, director.getEstablishedPost());
+            preparedStatement.setString(4, String.valueOf(director.getDateOfBirth()));
+
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
             LOGGER.error(e);
-        } finally {
+        }finally {
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -41,40 +42,39 @@ public class StorekeeperDaoImpl extends AbstarctDao implements StorekeeperDao{
             }
             closeConnection(connection);
         }
-
     }
 
-
     @Override
-    public Storekeeper getStorekeeperById(long id) {
+    public Director getDirectorById(long id) {
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Storekeeper storekeeper = null;
+        Director director = null;
         Address address = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM storekeepers L JOIN ADDRESSES A ON A.ID=L.ADDRESSES_ID " +
-                    "WHERE L.ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM directors D JOIN ADDRESSES A ON A.ID=D.ADDRESSES_ID " +
+                    "WHERE D.ID = ?");
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
-            storekeeper = new Storekeeper();
+            director = new Director();
             address = new Address();
 
-            storekeeper.setId(resultSet.getLong("ID"));
-            storekeeper.setName(resultSet.getString("NAME"));
-            storekeeper.setSurname(resultSet.getString("SURNAME"));
-            storekeeper.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
-            storekeeper.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
+            director.setId(resultSet.getLong("ID"));
+            director.setName(resultSet.getString("NAME"));
+            director.setSurname(resultSet.getString("SURNAME"));
+            director.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
+            director.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
 
             address.setCountry(resultSet.getString("COUNTRY"));
             address.setCity(resultSet.getString("CITY"));
             address.setStreet(resultSet.getString("STREET"));
             address.setHomeNumber(resultSet.getString("HOME_NUMBER"));
-            storekeeper.setAddress(address);
+            director.setAddress(address);
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -87,32 +87,31 @@ public class StorekeeperDaoImpl extends AbstarctDao implements StorekeeperDao{
             }
             closeConnection(connection);
         }
-        return storekeeper;
+        return director;
     }
 
-
     @Override
-    public void updateStorekeeper(Storekeeper storekeeper) {
+    public void updateDirector(Director director) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE storekeepers SET NAME = ?, SURNAME = ?, ESTABLISHED_POST = ?, DATE_OF_BIRTH = ? " +
+            preparedStatement = connection.prepareStatement("UPDATE directors SET NAME = ?, SURNAME = ?, ESTABLISHED_POST = ?, DATE_OF_BIRTH = ? " +
                     "WHERE ID = ?");
 
-            preparedStatement.setString(1, storekeeper.getName());
-            preparedStatement.setString(2, storekeeper.getSurname());
-            preparedStatement.setString(3, storekeeper.getEstablishedPost());
-            preparedStatement.setString(4, String.valueOf(storekeeper.getDateOfBirth()));
-            preparedStatement.setLong(5, storekeeper.getId());
+            preparedStatement.setString(1, director.getName());
+            preparedStatement.setString(2, director.getSurname());
+            preparedStatement.setString(3, director.getEstablishedPost());
+            preparedStatement.setString(4, String.valueOf(director.getDateOfBirth()));
+            preparedStatement.setLong(5, director.getId());
 
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
             LOGGER.error(e);
-        } finally {
+    } finally {
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -121,16 +120,15 @@ public class StorekeeperDaoImpl extends AbstarctDao implements StorekeeperDao{
         }
     }
 
-
     @Override
-    public void deleteStorekeeperById(long id) {
+    public void deleteDirectorById(long id) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM storekeepers WHERE ID = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM directors WHERE ID = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
         } catch (Exception e) {

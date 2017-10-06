@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mydb?useSSL=false"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--<properties resource="config.properties"/>-->
+    <mappers>
+        <mapper resource="com/rocksoft/LogStr/driverCarMapping.xml"/>
+        <mapper resource="com/rocksoft/LogStr/addressMapping.xml"/>
+        <mapper resource="com/rocksoft/LogStr/carMapping.xml"/>
+        <mapper resource="com/rocksoft/LogStr/directorMapping.xml"/>
+        <mapper resource="com/rocksoft/LogStr/headOfDepMapping.xml"/>
+        <mapper resource="com/rocksoft/LogStr/logistMapping.xml"/>
+        <mapper resource="com/rocksoft/LogStr/orderMapping.xml"/>
+        <mapper resource="com/rocksoft/LogStr/storekeeperMapping.xml"/>
+    </mappers>
+</configuration>

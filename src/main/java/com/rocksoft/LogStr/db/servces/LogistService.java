@@ -1,6 +1,6 @@
 package com.rocksoft.LogStr.db.servces;
 
-import com.rocksoft.LogStr.db.dao.daoImpl.LogistDaoImpl;
+import com.rocksoft.LogStr.db.dao.Impl.LogistDaoImpl;
 import com.rocksoft.LogStr.db.models.Logist;
 
 /**

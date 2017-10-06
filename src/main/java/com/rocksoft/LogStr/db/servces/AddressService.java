@@ -1,8 +1,8 @@
 package com.rocksoft.LogStr.db.servces;
 
 import com.rocksoft.LogStr.db.models.Address;
-import com.rocksoft.LogStr.db.dao.daoInterf.AddressDao;
-import com.rocksoft.LogStr.db.dao.daoImpl.AddressDaoImpl;
+import com.rocksoft.LogStr.db.dao.AddressDao;
+import com.rocksoft.LogStr.db.dao.Impl.AddressDaoImpl;
 import java.util.List;
 
 /**

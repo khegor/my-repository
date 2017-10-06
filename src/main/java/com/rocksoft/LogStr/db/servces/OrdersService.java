@@ -1,6 +1,6 @@
 package com.rocksoft.LogStr.db.servces;
 
-import com.rocksoft.LogStr.db.dao.daoImpl.OrdersDaoImpl;
+import com.rocksoft.LogStr.db.dao.Impl.OrdersDaoImpl;
 import com.rocksoft.LogStr.db.models.Orders;
 
 import java.util.List;

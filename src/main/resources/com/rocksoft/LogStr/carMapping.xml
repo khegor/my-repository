@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="carMapping">
+<select id="getCarById" resultMap="carMap">
+    SELECT
+    C.CAR_MODEL,
+    C.NUMBER
+    FROM drivers_cars
+    WHERE C.ID = #{id}
+</select>
+<resultMap id="carMap" type="com.rocksoft.LogStr.db.models.Car" autoMapping="false">
+    <id property="id" column="ID"/>
+    <result property="carModel" column="CAR_MODEL"/>
+    <result property="number" column="NUMBER"/>
+</resultMap>
+</mapper>

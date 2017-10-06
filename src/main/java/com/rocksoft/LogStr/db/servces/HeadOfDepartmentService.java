@@ -1,7 +1,6 @@
 package com.rocksoft.LogStr.db.servces;
 
-import com.rocksoft.LogStr.db.dao.daoImpl.HeadOfDepartmentDaoImpl;
-import com.rocksoft.LogStr.db.dao.daoInterf.HeadOfDepartmentDao;
+import com.rocksoft.LogStr.db.dao.Impl.HeadOfDepartmentDaoImpl;
 import com.rocksoft.LogStr.db.models.HeadOfDepartment;
 
 /**

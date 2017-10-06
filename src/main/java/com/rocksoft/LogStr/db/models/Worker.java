@@ -29,14 +29,16 @@ public abstract class Worker extends AbstractEntity {
     private List<Car> cars;
     private List<Orders> orders;
 
+
     private static final Logger LOGGER = Logger.getLogger(Worker.class);
-    @XmlElement(type=Date.class)
+    @XmlElement(type = Date.class)
     private Date dateOfBirth;
 
     public String getName() {
         return name;
     }
-    @XmlElement (name = "name")
+
+    @XmlElement(name = "name")
     @JsonSetter(value = "name")
     public void setName(String name) {
         this.name = name;
@@ -45,7 +47,8 @@ public abstract class Worker extends AbstractEntity {
     public String getSurname() {
         return surname;
     }
-    @XmlElement (name = "surname")
+
+    @XmlElement(name = "surname")
     @JsonSetter(value = "surname")
     public void setSurname(String surname) {
         this.surname = surname;
@@ -54,8 +57,9 @@ public abstract class Worker extends AbstractEntity {
     public String getEstablishedPost() {
         return establishedPost;
     }
-    @XmlElement (name = "establishedPost")
-    @JsonSetter (value = "establishedPost")
+
+    @XmlElement(name = "establishedPost")
+    @JsonSetter(value = "establishedPost")
     public void setEstablishedPost(String establishedPost) {
         this.establishedPost = establishedPost;
     }
@@ -63,20 +67,23 @@ public abstract class Worker extends AbstractEntity {
     public Address getAddress() {
         return address;
     }
-    @XmlElement (name = "address")
+
+    @XmlElement(name = "address")
     @JsonSetter(value = "address")
     public void setAddress(Address address) {
         this.address = address;
     }
 
     public List<Car> getCars() {
+
         return cars;
     }
 
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }
-    public void setOrders(List<Orders>orders){
+
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 
@@ -85,8 +92,14 @@ public abstract class Worker extends AbstractEntity {
     }
 
     @Override
-    public String toString(){
-        return getName() + " " + getSurname() + " " + getEstablishedPost() + " " + getAddress() + " " + dateOfBirth.toString();
+    public String toString() {
+        String s = "";
+        for (Car c : cars) {
+            s = s + " " + getName() + " " + getSurname() + " " +
+                    getEstablishedPost() + " " + getAddress() + " " +
+                    dateOfBirth.toString() + " " + c.getCarModel() + " " + c.getNumber() + "\n";
+        }
+        return  s;
     }
 
     public Date getDateOfBirth() {

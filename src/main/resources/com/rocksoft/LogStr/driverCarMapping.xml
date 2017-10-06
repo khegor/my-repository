@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="driverCarMapping">
+    <select id="getDriverCarById" resultMap="driverCarMap">
+        SELECT
+            D.ID,
+            D.NAME,
+            D.SURNAME,
+            D.ESTABLISHED_POST,
+            D.DATE_OF_BIRTH
+        FROM drivers D
+        WHERE D.ID = #{id}
+    </select>
+    <select id="getAllDriverCar" resultMap="driverCarMap">
+        SELECT D.ID, D.NAME, D.SURNAME from drivers D
+    </select>
+
+    <insert id="createDriverCar" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO mydb.drivers (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH) values (#{name}, #{surname}, #{establishedPost}, #{dateOfBirth})
+    </insert>
+    <update id="updateDriverCar">
+        update drivers set NAME = #{name}, SURNAME = #{surname} where ID = #{id}
+    </update>
+    <delete id="deleteDriverCar">
+        delete from drivers where ID = #{id}
+    </delete>
+    <resultMap id="driverCarMap" type="com.rocksoft.LogStr.db.models.DriverCar" autoMapping="false">
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="surname" column="SURNAME"/>
+        <result property="establishedPost" column="ESTABLISHED_POST"/>
+        <result property="dateOfBirth" column="DATE_OF_BIRTH"/>
+    </resultMap>
+</mapper>

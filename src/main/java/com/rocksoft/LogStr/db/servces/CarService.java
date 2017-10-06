@@ -1,7 +1,6 @@
 package com.rocksoft.LogStr.db.servces;
 
-import com.rocksoft.LogStr.db.dao.daoImpl.CarDaoImpl;
-import com.rocksoft.LogStr.db.dao.daoInterf.CarDao;
+import com.rocksoft.LogStr.db.dao.Impl.CarDaoImpl;
 import com.rocksoft.LogStr.db.models.Car;
 
 import java.util.List;

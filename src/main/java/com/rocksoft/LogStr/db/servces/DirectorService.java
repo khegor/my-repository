@@ -1,6 +1,6 @@
 package com.rocksoft.LogStr.db.servces;
 
-import com.rocksoft.LogStr.db.dao.daoImpl.DirectorDaoImpl;
+import com.rocksoft.LogStr.db.dao.Impl.DirectorDaoImpl;
 import com.rocksoft.LogStr.db.models.Director;
 
 /**

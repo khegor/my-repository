@@ -1,4 +1,4 @@
-package com.rocksoft.LogStr.db.dao.daoInterf;
+package com.rocksoft.LogStr.db.dao;
 
 import com.rocksoft.LogStr.db.models.HeadOfDepartment;
 

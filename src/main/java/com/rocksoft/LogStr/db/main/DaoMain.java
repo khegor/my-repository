@@ -1,9 +1,7 @@
 package com.rocksoft.LogStr.db.main;
 
 
-import com.rocksoft.LogStr.db.models.Director;
-import com.rocksoft.LogStr.db.models.DriverCar;
-import com.rocksoft.LogStr.db.models.Orders;
+import com.rocksoft.LogStr.db.models.*;
 import com.rocksoft.LogStr.db.servces.DirectorService;
 import com.rocksoft.LogStr.db.servces.DriverCarService;
 import com.rocksoft.LogStr.db.servces.OrdersService;
@@ -21,13 +19,28 @@ public class DaoMain {
         BasicConfigurator.configure();
 
 
-        DirectorService directorService = new DirectorService();
+        /*DirectorService directorService = new DirectorService();
         Director director = directorService.getDirectorById(1);
-        System.out.println(director);
+        System.out.println(director);*/
+
+        /*DriverCarService driverCarService = new DriverCarService();
+        DriverCar driverCar = driverCarService.getDriverCarById(4);
+        System.out.println(driverCar);*/
 
         DriverCarService driverCarService = new DriverCarService();
-        DriverCar driverCar = driverCarService.getDriverCarById(1);
-        System.out.println(driverCar);
+        DriverCar driverCar = new DriverCar();
+        for(DriverCar dc : driverCarService.getAllDriverCars()){
+            System.out.println(dc);
+        }
+
+        List<DriverCar> driverCars = driverCarService.getAllDriverCars();
+        DriverCar driverCar1 = driverCars.get(1);
+        driverCar1.setName("Dodo");
+        driverCarService.updateDriverCar(driverCar1);
+        driverCarService.deleteDriverCar(6);
+        System.out.println(driverCar1.getName());
+
+
 
     }
 }
