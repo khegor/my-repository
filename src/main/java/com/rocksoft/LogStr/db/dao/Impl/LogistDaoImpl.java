@@ -54,7 +54,7 @@ public class LogistDaoImpl extends AbstarctDao implements LogistDao{
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM logists L JOIN ADDRESSES A ON A.ID=L.ADDRESSES_ID " +
+            preparedStatement = connection.prepareStatement("SELECT * FROM logists L JOIN ADDRESSES A ON A.ID = L.ADDRESSES_ID " +
                     "WHERE L.ID = ?");
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();

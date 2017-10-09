@@ -23,6 +23,18 @@ public class Address extends AbstractEntity {
     @JsonProperty
     private String homeNumber;
 
+    private long id;
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getCountry() {
         return country;
     }

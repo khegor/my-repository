@@ -94,12 +94,11 @@ public abstract class Worker extends AbstractEntity {
     @Override
     public String toString() {
         String s = "";
-        for (Car c : cars) {
-            s = s + " " + getName() + " " + getSurname() + " " +
-                    getEstablishedPost() + " " + getAddress() + " " +
-                    dateOfBirth.toString() + " " + c.getCarModel() + " " + c.getNumber() + "\n";
-        }
-        return  s;
+
+        s = s + " " + getName() + " " + getSurname() + " " +
+                getEstablishedPost() + " " + getAddress() + " " +
+                dateOfBirth.toString() + " " + getAddress() + "\n";
+        return s;
     }
 
     public Date getDateOfBirth() {

@@ -1,16 +1,12 @@
 package com.rocksoft.LogStr.db.dao;
 
-import com.rocksoft.LogStr.cp.ConnectionPool;
+
 import com.rocksoft.LogStr.db.connection.for_db.DbConnectionPool;
 import org.apache.log4j.Logger;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 

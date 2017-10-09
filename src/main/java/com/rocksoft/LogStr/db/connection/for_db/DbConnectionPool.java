@@ -1,6 +1,8 @@
 package com.rocksoft.LogStr.db.connection.for_db;
 
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class DbConnectionPool {
 
+    public static final Logger LOGGER = Logger.getLogger(DbConnectionPool.class);
     private static DbConnectionPool instance;
 
     private volatile BlockingQueue<Connection> pool;
@@ -46,7 +49,7 @@ public class DbConnectionPool {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         }
     }

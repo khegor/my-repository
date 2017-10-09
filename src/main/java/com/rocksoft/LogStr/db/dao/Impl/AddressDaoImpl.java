@@ -44,29 +44,33 @@ public class AddressDaoImpl extends AbstarctDao implements AddressDao {
 
     @Override
     public synchronized Address getAddressById(long id) {
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         Address address = null;
+
         try {
             connection = getConnection();
-            connection.prepareStatement("SELECT * FROM addresses WHERE ID = ?");
+            preparedStatement = connection.prepareStatement("SELECT A.ID, A.COUNTRY, A.CITY, A.STREET, A.HOME_NUMBER FROM addresses A WHERE A.ID = ?");
             preparedStatement.setLong(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
 
-            address = new Address();
-            address.setId(resultSet.getLong("ID"));
-            address.setCity(resultSet.getString("CITY"));
-            address.setCountry(resultSet.getString("COUNTRY"));
-            address.setStreet(resultSet.getString("STREET"));
-            address.setHomeNumber(resultSet.getString("HOME_NUMBER"));
-
+                address = new Address();
+                address.setId(resultSet.getLong("ID"));
+                address.setCity(resultSet.getString("CITY"));
+                address.setCountry(resultSet.getString("COUNTRY"));
+                address.setStreet(resultSet.getString("STREET"));
+                address.setHomeNumber(resultSet.getString("HOME_NUMBER"));
+            }
         } catch (Exception e) {
             LOGGER.error(e);
-        }finally {
+        } finally {
             try {
                 preparedStatement.close();
+                resultSet.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }
