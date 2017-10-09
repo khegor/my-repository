@@ -6,13 +6,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Esenin on 27.09.2017.
  */
 public class DbConnectionPool {
 
-    private static DbConnectionPool connectionPool;
+    private static DbConnectionPool instance;
 
     private volatile BlockingQueue<Connection> pool;
     private Integer poolSize;
@@ -24,23 +26,23 @@ public class DbConnectionPool {
         this.connectionCount = 0;
     }
 
-    public Connection getConnection(String url, String username, String password) throws InterruptedException, SQLException {
+    public Connection getConnection(String url, String username, String password)
+            throws InterruptedException, SQLException {
         Connection connection = DriverManager.getConnection(url, username, password);
-        if(pool != null && pool.isEmpty() && connectionCount < poolSize) {
+        if (pool != null && pool.isEmpty() && connectionCount < poolSize) {
             pool.add(connection);
             connectionCount++;
-        }
-        return pool.take();
+        } return pool.take();
     }
 
     public void close(Connection connection) {
-        if(pool != null) {
+        if (pool != null) {
             pool.add(connection);
         }
     }
 
     public void closeAll() {
-        for(Connection connection : pool) {
+        for (Connection connection : pool) {
             try {
                 connection.close();
             } catch (SQLException e) {
@@ -50,15 +52,14 @@ public class DbConnectionPool {
     }
 
     public static DbConnectionPool getInstance(Integer poolSize) {
-        DbConnectionPool localInstance = connectionPool;
-        if (localInstance == null) {
-            synchronized (DbConnectionPool.class) {
-                localInstance = connectionPool;
-                if (localInstance == null) {
-                    connectionPool = localInstance = new DbConnectionPool(poolSize);
-                }
-            }
+        Lock lock = new ReentrantLock();
+        lock.lock();
+        try {
+            if (instance == null) {
+                instance = new DbConnectionPool(poolSize);
+            } return instance;
+        } finally {
+            lock.unlock();
         }
-        return localInstance;
     }
 }

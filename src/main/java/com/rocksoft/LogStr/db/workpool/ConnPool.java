@@ -2,13 +2,15 @@ package com.rocksoft.LogStr.db.workpool;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Esenin on 27.09.2017.
  */
 public class ConnPool {
 
-    private static ConnPool connectionPool;
+    private static ConnPool instance;
 
     private volatile BlockingQueue<Conn> pool;
     private Integer poolSize;
@@ -22,7 +24,7 @@ public class ConnPool {
 
     public Conn getConnection() throws InterruptedException {
         Conn connection = new Conn();
-        if(pool != null && pool.isEmpty() && connectionCount < poolSize) {
+        if (pool != null && pool.isEmpty() && connectionCount < poolSize) {
             pool.add(connection);
             connectionCount++;
         }
@@ -30,21 +32,22 @@ public class ConnPool {
     }
 
     public void close(Conn connection) {
-        if(pool != null) {
+        if (pool != null) {
             pool.add(connection);
         }
     }
 
     public static ConnPool getInstance(Integer poolSize) {
-        ConnPool localInstance = connectionPool;
-        if (localInstance == null) {
-            synchronized (ConnPool.class) {
-                localInstance = connectionPool;
-                if (localInstance == null) {
-                    connectionPool = localInstance = new ConnPool(poolSize);
-                }
+        Lock lock = new ReentrantLock();
+        lock.lock();
+        try {
+            if (instance == null) {
+                instance = new ConnPool(poolSize);
             }
+            return instance;
+        } finally {
+            lock.unlock();
         }
-        return localInstance;
     }
 }
+
