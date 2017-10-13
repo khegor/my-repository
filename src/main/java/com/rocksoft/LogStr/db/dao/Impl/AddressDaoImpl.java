@@ -4,10 +4,7 @@ import com.rocksoft.LogStr.db.dao.AbstarctDao;
 import com.rocksoft.LogStr.db.dao.AddressDao;
 import com.rocksoft.LogStr.db.models.Address;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +19,18 @@ public class AddressDaoImpl extends AbstarctDao implements AddressDao {
         PreparedStatement preparedStatement = null;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO addresses (COUNTRY, CITY, STREET, HOME_NUMBER) VALUES (?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO addresses (COUNTRY, CITY, STREET, HOME_NUMBER) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, address.getCountry());
             preparedStatement.setString(2, address.getCity());
             preparedStatement.setString(3, address.getStreet());
             preparedStatement.setString(4, address.getHomeNumber());
 
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if(resultSet.next()) {
+                address.setId(resultSet.getLong(1));
+            }
         } catch (Exception e) {
             LOGGER.error(e);
         }finally {
@@ -85,11 +86,12 @@ public class AddressDaoImpl extends AbstarctDao implements AddressDao {
         PreparedStatement preparedStatement = null;
         Address address = null;
         List<Address> addresses = new ArrayList<>();
+        ResultSet resultSet = null;
 
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM addresses");
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 address = new Address();
                 address.setId(resultSet.getLong("ID"));
@@ -106,6 +108,7 @@ public class AddressDaoImpl extends AbstarctDao implements AddressDao {
         }finally {
             try {
                 preparedStatement.close();
+                resultSet.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }

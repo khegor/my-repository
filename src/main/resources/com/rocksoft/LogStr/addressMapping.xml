@@ -6,6 +6,9 @@
     <select id="getAddressById" resultMap="addressMap">
         SELECT A.ID, A.COUNTRY, A.CITY, A.STREET, A.HOME_NUMBER FROM addresses A WHERE A.ID = #{id}
     </select>
+    <insert id="createAddress" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO mydb.addresses (COUNTRY, CITY, STREET, HOME_NUMBER) VALUES (#{country}, #{city}, #{street}, #{homeNumber})
+    </insert>
     <resultMap id="addressMap" type="com.rocksoft.LogStr.db.models.Address" autoMapping="false">
         <id property="id" column="ID"/>
         <result property="country" column="COUNTRY"/>

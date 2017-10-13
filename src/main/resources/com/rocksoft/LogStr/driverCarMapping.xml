@@ -18,7 +18,7 @@
     </select>
 
     <insert id="createDriverCar" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO mydb.drivers (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH) values (#{name}, #{surname}, #{establishedPost}, #{dateOfBirth})
+        INSERT INTO mydb.drivers (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH, ADDRESSES_ID) values (#{name}, #{surname}, #{establishedPost}, #{dateOfBirth}, #{address.id})
     </insert>
     <update id="updateDriverCar">
         update drivers set NAME = #{name}, SURNAME = #{surname} where ID = #{id}

@@ -19,8 +19,8 @@ public class DriverCarService {
     private DriverCarDao driverCarDao = new DriverCarDaoImpl();
     private AddressDao addressDao = new AddressDaoImpl();
 
-    public void createDriverCar(DriverCar driver, Address address) {
-        addressDao.createAddress(address);
+    public void createDriverCar(DriverCar driver) {
+        addressDao.createAddress(driver.getAddress());
         driverCarDao.createDriverCar(driver);
     }
 
@@ -31,14 +31,18 @@ public class DriverCarService {
     }
 
     public List<DriverCar> getAllDriverCars() {
+        addressDao.getAllAddresses();
+        driverCarDao.getAllDriverCar();
         return driverCarDao.getAllDriverCar();
     }
 
-    public void updateDriverCar(DriverCar driver) {
+    public void updateDriverCar(DriverCar driver, Address address) {
+        addressDao.updateAddress(address);
         driverCarDao.updateDriverCar(driver);
     }
 
     public void deleteDriverCar(long id) {
+        addressDao.deleteAddressById(id);
         driverCarDao.deleteDriverCarById(id);
     }
 }

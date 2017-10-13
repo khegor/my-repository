@@ -1,5 +1,6 @@
 package com.rocksoft.LogStr.db.dao;
 
+import com.rocksoft.LogStr.db.models.Address;
 import com.rocksoft.LogStr.db.models.DriverCar;
 
 import java.util.List;

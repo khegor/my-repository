@@ -97,11 +97,11 @@ public class DriverCarDaoImpl extends AbstarctDao implements DriverCarDao {
         ResultSet resultSet = null;
         DriverCar driverCar = null;
         List<DriverCar> driverCars = new ArrayList<>();
+        Address address = null;
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT D.ID, D.NAME, D.SURNAME, D.ESTABLISHED_POST, " +
-                    "D.DATE_OF_BIRTH FROM drivers D;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM drivers D JOIN addresses A ON D.ADDRESSES_ID = A.ID");
 
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -111,6 +111,9 @@ public class DriverCarDaoImpl extends AbstarctDao implements DriverCarDao {
                 driverCar.setSurname(resultSet.getString("SURNAME"));
                 driverCar.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
                 driverCar.setDateOfBirth(resultSet.getDate("DATE_OF_BIRTH"));
+
+
+                driverCars.add(driverCar);
             }
         } catch (Exception e) {
             LOGGER.error(e);
@@ -162,7 +165,7 @@ public class DriverCarDaoImpl extends AbstarctDao implements DriverCarDao {
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM drivers WHERE ID = ?");
+            preparedStatement = connection.prepareStatement("DELETE * FROM drivers WHERE ID = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
         } catch (Exception e) {

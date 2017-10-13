@@ -51,7 +51,6 @@ public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Director director = null;
-        Address address = null;
 
         try {
             connection = getConnection();
@@ -62,19 +61,13 @@ public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
             resultSet.next();
 
             director = new Director();
-            address = new Address();
+
 
             director.setId(resultSet.getLong("ID"));
             director.setName(resultSet.getString("NAME"));
             director.setSurname(resultSet.getString("SURNAME"));
             director.setEstablishedPost(resultSet.getString("ESTABLISHED_POST"));
             director.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
-
-            address.setCountry(resultSet.getString("COUNTRY"));
-            address.setCity(resultSet.getString("CITY"));
-            address.setStreet(resultSet.getString("STREET"));
-            address.setHomeNumber(resultSet.getString("HOME_NUMBER"));
-            director.setAddress(address);
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -89,6 +82,7 @@ public class DirectorDaoImpl extends AbstarctDao implements DirectorDao {
         }
         return director;
     }
+
 
     @Override
     public void updateDirector(Director director) {
