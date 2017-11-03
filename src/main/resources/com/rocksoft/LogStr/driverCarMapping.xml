@@ -14,17 +14,24 @@
         WHERE D.ID = #{id}
     </select>
     <select id="getAllDriverCar" resultMap="driverCarMap">
-        SELECT D.ID, D.NAME, D.SURNAME from drivers D
+        SELECT
+            D.ID,
+            D.NAME,
+            D.SURNAME
+        FROM drivers D
     </select>
-
     <insert id="createDriverCar" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO mydb.drivers (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH, ADDRESSES_ID) values (#{name}, #{surname}, #{establishedPost}, #{dateOfBirth}, #{address.id})
+        INSERT INTO mydb.drivers (NAME, SURNAME, ESTABLISHED_POST, DATE_OF_BIRTH, ADDRESSES_ID)
+        VALUES (#{name}, #{surname}, #{establishedPost}, #{dateOfBirth}, #{address.id})
     </insert>
     <update id="updateDriverCar">
-        update drivers set NAME = #{name}, SURNAME = #{surname} where ID = #{id}
+        UPDATE drivers
+        SET NAME = #{name}, SURNAME = #{surname}
+        WHERE ID = #{id}
     </update>
     <delete id="deleteDriverCar">
-        delete from drivers where ID = #{id}
+        DELETE FROM drivers
+        WHERE ID = #{id}
     </delete>
     <resultMap id="driverCarMap" type="com.rocksoft.LogStr.db.models.DriverCar" autoMapping="false">
         <id property="id" column="ID"/>

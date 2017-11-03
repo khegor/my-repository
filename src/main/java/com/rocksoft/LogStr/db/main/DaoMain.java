@@ -32,9 +32,9 @@ public class DaoMain {
 
 //                                                         GetDriverByID
 // _____________________________________________________________________________________________________________________
-//        DriverCarService driverCarService = new DriverCarService();
-//        DriverCar driverCar = driverCarService.getDriverCarById(1);
-//        System.out.println(driverCar);
+        DriverCarService driverCarService = new DriverCarService();
+        DriverCar driverCar = driverCarService.getDriverCarById(1);
+        System.out.println(driverCar);
 
 
 //                                                          CreateDriver

@@ -19,7 +19,7 @@ public abstract class AbstarctDao {
 
     private static Properties properties;
     private static InputStream inputStream;
-    private DbConnectionPool connectionPool = DbConnectionPool.getInstance(3);
+    private DbConnectionPool connectionPool = DbConnectionPool.getInstance();
 
     static {
         properties = new Properties();

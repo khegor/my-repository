@@ -18,21 +18,20 @@ public class DbConnectionPool {
 
     public static final Logger LOGGER = Logger.getLogger(DbConnectionPool.class);
     private static DbConnectionPool instance;
-
     private volatile BlockingQueue<Connection> pool;
-    private Integer poolSize;
+    private final static int maxConnect = 3;
     private volatile Integer connectionCount;
 
-    private DbConnectionPool(Integer poolSize) {
-        this.pool = new ArrayBlockingQueue<>(poolSize);
-        this.poolSize = poolSize;
+
+    private DbConnectionPool() {
+        this.pool = new ArrayBlockingQueue<Connection>(maxConnect);
         this.connectionCount = 0;
     }
 
     public Connection getConnection(String url, String username, String password)
             throws InterruptedException, SQLException {
         Connection connection = DriverManager.getConnection(url, username, password);
-        if (pool != null && pool.isEmpty() && connectionCount < poolSize) {
+        if (pool != null && pool.isEmpty() && connectionCount < maxConnect) {
             pool.add(connection);
             connectionCount++;
         } return pool.take();
@@ -54,12 +53,12 @@ public class DbConnectionPool {
         }
     }
 
-    public static DbConnectionPool getInstance(Integer poolSize) {
+    public static DbConnectionPool getInstance() {
         Lock lock = new ReentrantLock();
         lock.lock();
         try {
             if (instance == null) {
-                instance = new DbConnectionPool(poolSize);
+                instance = new DbConnectionPool();
             } return instance;
         } finally {
             lock.unlock();
